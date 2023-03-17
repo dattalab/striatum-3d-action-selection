@@ -2,7 +2,6 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7274803.svg)](https://doi.org/10.5281/zenodo.7274803)
 
-Markowitz JE, Gillis WF, Beron CC, Neufeld SQ, Robertson K, Bhagat ND, Peterson RE, Peterson E, Hyun M, Linderman SW, Sabatini BL, Datta SR
 
 ## Authors
 Jeffrey E. Markowitz<sup>1,2,5</sup>, Winthrop Gillis<sup>1</sup>, Celion Beron<sup>1,2</sup>, Shay Neufeld<sup>1,2</sup>, Keiramarie Robertson<sup>1,2</sup>, Neha Bhagat<sup>1</sup>, Ralph Peterson<sup>1</sup>, Emalee Peterson<sup>1</sup>, Minsuk Hyun<sup>1,2</sup>, Scott Linderman<sup>3,4</sup>, Bernardo L. Sabatini<sup>1,2</sup>, Sandeep R. Datta<sup>1,#</sup>
