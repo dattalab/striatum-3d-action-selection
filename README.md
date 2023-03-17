@@ -42,7 +42,7 @@ Installation instructions
 
 How to obtain data.
 
-1. Download data from Zenodo here [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7274803.svg)](https://doi.org/10.5281/zenodo.7274803). You should see the following.
+1. Download data from Zenodo here [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7274803.svg)](https://doi.org/10.5281/zenodo.7274803). You should see the following directory structure after unzipping the data. Note that it is recommended to decompress the data into a directory called `phanalysis_images` in `~/Desktop` – this is the default path for loading data in most scripts.
 
 		.
 		├── 1pimaging_dls
