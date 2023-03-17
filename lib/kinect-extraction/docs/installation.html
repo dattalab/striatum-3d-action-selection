@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; kinect-extraction 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="kinect-extraction 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Usage" href="usage.html"/>
+        <link rel="prev" title="Welcome to kinect-extraction’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> kinect-extraction
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-installation">Manual installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#o2">o2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">kinect-extraction</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Note that this assumes a passing familiarity with the command line and git.  If you are unfamiliar, google “command line tutorial” and “git tutorial” (hard-linking to specific tutorials would be a fool’s errand at this point).</p>
+<p>Simply clone the kinect-extract github repository, and add the directory and subdirectories to your MATLAB path. More details below.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>This has been tested using MATLAB 2016A and later on Mac and CentOS. The only MATLAB Toolboxes required are the Signal Processing, Statistics, and Image Processing toolboxes (AFAIK), which are included in most standard installations.  It is highly recommended that you have git installed for ease of installation and managing updates.</p>
+</div>
+<div class="section" id="manual-installation">
+<h2>Manual installation<a class="headerlink" href="#manual-installation" title="Permalink to this headline">¶</a></h2>
+<p>First clone the repository somewhere reasonable using the terminal (Linux/OS X).</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/jmarkow/kinect-extract.git
+</pre></div>
+</div>
+<p>Next, make sure the repository and all subdirectories (excluding docs are included in your MATLAB path).  Finally, there are convenience bash scripts that you may want to take advantage of in <code class="docutils literal"><span class="pre">kinect-extract/bash</span></code>.  It is recommended to create symlinks in <code class="docutils literal"><span class="pre">/usr/local/bin</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir /usr/local/bin
+ln -s ~/kinect-extract/bash/kinect_extract_it.sh /usr/local/bin/kinect_extract_it
+ln -s ~/kinect-extract/bash/kinect_extract_get_projections.sh /usr/local/bin/kinect_extract_it
+</pre></div>
+</div>
+</div>
+<div class="section" id="o2">
+<h2>o2<a class="headerlink" href="#o2" title="Permalink to this headline">¶</a></h2>
+<p>So this is annoying, but you only need to do it once. To ensure that your MATLAB path is set correctly on o2, run the following after downloading the repo into a sensible location on o2.  Fire up an interactive MATLAB session, then:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">mkdir</span><span class="p">(</span><span class="s">&#39;~/Documents/MATLAB&#39;</span><span class="p">)</span>
+<span class="n">addpath</span><span class="p">(</span><span class="s">&#39;location_of_kinect-extract&#39;</span><span class="p">)</span>
+<span class="n">savepath</span><span class="p">(</span><span class="s">&#39;~/Documents/MATLAB/pathdef.m&#39;</span><span class="p">)</span>
+<span class="n">userpath</span><span class="p">(</span><span class="s">&#39;~/Documents/MATLAB&#39;</span><span class="p">)</span>
+<span class="n">savepath</span>
+</pre></div>
+</div>
+<p>Finally create a file named <code class="docutils literal"><span class="pre">`startup.m</span></code> in <code class="docutils literal"><span class="pre">~/Documents/MATLAB</span></code>, with the following contents:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">path</span><span class="p">(</span><span class="n">pathdef</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To test that everything is working close out MATLAB, start a new sesssion, and try this:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">help</span> <span class="n">kinect_extract_find_all_objects</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to kinect-extraction’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jeffrey E. Markowitz.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

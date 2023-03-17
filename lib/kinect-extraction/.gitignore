@@ -1,0 +1,7 @@
+*.asv
+.DS_Store
+*.swp
+*.doctree
+docs/.doctrees/*
+*.pickle
+*~

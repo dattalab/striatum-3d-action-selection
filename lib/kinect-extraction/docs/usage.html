@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; kinect-extraction 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="kinect-extraction 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> kinect-extraction
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-organize-your-data">How to organize your data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extracting-data-bash">Extracting data (bash)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extracting-data-matlab">Extracting data (MATLAB)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interacting-with-extracted-data">Interacting with extracted data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregating-sessions">Aggregating sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#computing-principal-components-and-scalars-bash">Computing principal components and scalars (bash)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#computing-principal-components-matlab">Computing principal components (MATLAB)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-a-flip-classifier">Making a flip classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-data-for-modeling">Exporting data for modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assigning-groups-to-objects">Assigning groups to objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-options">Custom options</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">kinect-extraction</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Many functions in this toolbox are parallel-enabled (i.e. include parfor loops), check the Parallel Preferences in your MATLAB installation to avoid unwanted behavior.</p>
+</div>
+<p>This codebase allows you to work with data collecting using the Kinect2 (or Kinect for Xbox One) sensor.  The typical workflow is:</p>
+<ol class="arabic simple">
+<li>Extract raw data (crop and orient mouse)</li>
+<li>Aggregate extractions from multiple sessions</li>
+<li>Compute principal components from the cropped, oriented mice</li>
+<li>Model the data</li>
+<li>Collect output from the model</li>
+</ol>
+<div class="section" id="how-to-organize-your-data">
+<span id="organization"></span><h2>How to organize your data<a class="headerlink" href="#how-to-organize-your-data" title="Permalink to this headline">¶</a></h2>
+<p>Typically, you want to keep all data in a related experiment that you might model together in the <em>same</em> directory.  Here’s a truncated list of a directory structure I used for a recent experiment.  (Note that data from extractions is also shown, for now you should only have <code class="docutils literal"><span class="pre">depth.dat</span></code>, <code class="docutils literal"><span class="pre">depth_ts.txt</span></code>, and <code class="docutils literal"><span class="pre">metadata.json</span></code>, or a tarball <code class="docutils literal"><span class="pre">*.tar.gz</span></code>).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>my_project
+├── session_20170609165919
+│   ├── depth.dat
+│   ├── depth_ts.txt
+│   ├── kinect_object.mat
+│   ├── metadata.json
+│   ├── proc
+│   │   ├── depth_bounded.mat
+│   │   ├── depth_bounded.mp4
+│   │   ├── depth_bounded_rotated.mat
+│   │   ├── depth_bounded_rotated.mp4
+│   │   ├── depth_masked.mat
+│   │   ├── depth_masked.mp4
+│   │   ├── depth_stats.mat
+│   │   └── depth_stats.mp4
+│   ├── roi_debug_dist.tiff
+│   ├── roi_debug_siz.tiff
+│   ├── roi_debug_sol.tiff
+│   ├── roi_extraction.tiff
+│   ├── roi_firstframe.tiff
+│   ├── roi.mat
+│   └── roi_tracking.tiff
+├── session_20170609170129
+│   ├── depth.dat
+│   ├── depth_ts.txt
+│   ├── kinect_object.mat
+│   ├── metadata.json
+│   ├── proc
+│   │   ├── depth_bounded.mat
+│   │   ├── depth_bounded.mp4
+│   │   ├── depth_bounded_rotated.mat
+│   │   ├── depth_bounded_rotated.mp4
+│   │   ├── depth_masked.mat
+│   │   ├── depth_masked.mp4
+│   │   ├── depth_stats.mat
+│   │   └── depth_stats.mp4
+│   ├── roi_debug_dist.tiff
+│   ├── roi_debug_siz.tiff
+│   ├── roi_debug_sol.tiff
+│   ├── roi_extraction.tiff
+│   ├── roi_firstframe.tiff
+│   ├── roi.mat
+│   └── roi_tracking.tiff
+├── session_20170609174946
+│   ├── depth.dat
+│   ├── depth_ts.txt
+│   ├── kinect_object.mat
+│   ├── metadata.json
+│   ├── proc
+│   │   ├── depth_bounded.mat
+│   │   ├── depth_bounded.mp4
+│   │   ├── depth_bounded_rotated.mat
+│   │   ├── depth_bounded_rotated.mp4
+│   │   ├── depth_masked.mat
+│   │   ├── depth_masked.mp4
+│   │   ├── depth_stats.mat
+│   │   └── depth_stats.mp4
+│   ├── roi_debug_dist.tiff
+│   ├── roi_debug_siz.tiff
+│   ├── roi_debug_sol.tiff
+│   ├── roi_extraction.tiff
+│   ├── roi_firstframe.tiff
+│   ├── roi.mat
+│   └── roi_tracking.tiff
+├── session_20170609175249
+│   ├── depth.dat
+│   ├── depth_ts.txt
+│   ├── kinect_object.mat
+│   ├── metadata.json
+│   ├── proc
+│   │   ├── depth_bounded.mat
+│   │   ├── depth_bounded.mp4
+│   │   ├── depth_bounded_rotated.mat
+│   │   ├── depth_bounded_rotated.mp4
+│   │   ├── depth_masked.mat
+│   │   ├── depth_masked.mp4
+│   │   ├── depth_stats.mat
+│   │   └── depth_stats.mp4
+│   ├── roi_debug_dist.tiff
+│   ├── roi_debug_siz.tiff
+│   ├── roi_debug_sol.tiff
+│   ├── roi_extraction.tiff
+│   ├── roi_firstframe.tiff
+│   ├── roi.mat
+│   └── roi_tracking.tiff
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-data-bash">
+<h2>Extracting data (bash)<a class="headerlink" href="#extracting-data-bash" title="Permalink to this headline">¶</a></h2>
+<p>Say we have a tarball created by an acquisition GUI, <code class="docutils literal"><span class="pre">session_20171202greatdata.tar.gz</span></code>, and we have already installed the repo per the <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation instructions</span></a>.  If you want to extract some data from the command line on o2, use the following command</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/place_where_i_keep_data
+kinect_extract_it  -i session_20171202greatdata.tar.gz
+</pre></div>
+</div>
+<p>To see all of the options available for the script, and typically usage patterns, run without any options or arguments.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kinect_extract_it
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-data-matlab">
+<h2>Extracting data (MATLAB)<a class="headerlink" href="#extracting-data-matlab" title="Permalink to this headline">¶</a></h2>
+<p>You may also, for a variety of reasons, want to extract from MATLAB.  To do so, enter a MATLAB session navigate to either a tarball or directory with some raw data, then:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">place_where_i_keep_data</span>
+<span class="n">kinect_extract_it</span><span class="p">(</span><span class="s">&#39;datafile.tar.gz&#39;</span><span class="p">,</span><span class="n">true</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second argument specifies that the data has a cable.  To see all options for the script:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">help</span> <span class="n">kinect_extract_it</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Hopefully you see a…helpful help dialogue.</p>
+</div>
+<div class="section" id="interacting-with-extracted-data">
+<h2>Interacting with extracted data<a class="headerlink" href="#interacting-with-extracted-data" title="Permalink to this headline">¶</a></h2>
+<p>After an extraction has completed, you should see a directory <code class="docutils literal"><span class="pre">proc</span></code> as a sub-directory in the extracted tarball or directory.  Now we can make a <code class="docutils literal"><span class="pre">kinect-extract</span></code> object from the data.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">place_with_data</span><span class="o">/</span><span class="n">session_2018021200000</span><span class="o">/</span>
+<span class="n">ext</span><span class="p">=</span><span class="n">kinect_extract</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now there an object stored in the variable <cite>ext</cite>.  A few useful methods to know, first:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">raw_frames</span><span class="p">=</span><span class="n">ext</span><span class="p">.</span><span class="n">load_oriented_frames</span><span class="p">(</span><span class="s">&#39;raw&#39;</span><span class="p">);</span> <span class="c">% loads extracted frames</span>
+<span class="n">figure</span><span class="p">();</span>
+<span class="n">imagesc</span><span class="p">(</span><span class="n">raw_frames</span><span class="p">(:,:,</span><span class="mi">1</span><span class="p">))</span> <span class="c">% display the first frame</span>
+</pre></div>
+</div>
+<p>What if we want to compute some scalars?  If your data has no cables <code class="docutils literal"><span class="pre">ext.has_cable=false</span></code>, then, go ahead and compute some scalars. Otherwise, you must have computed both principal components and principal component scores first (see sections below), since they are used to denoise the mouse.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">ext</span><span class="p">.</span><span class="n">compute_scalars</span><span class="p">;</span> <span class="c">% compute scalars</span>
+<span class="n">figure</span><span class="p">();</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">ext</span><span class="p">.</span><span class="n">projections</span><span class="p">.</span><span class="n">velocity_mag</span><span class="p">)</span> <span class="c">% display velocity</span>
+</pre></div>
+</div>
+<p>This will make a plot of 2d velocity (in pixels).  We can also compute principal components to use for modeling.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">ext</span><span class="p">.</span><span class="n">compute_pcs</span><span class="p">;</span> <span class="c">% compute principal components</span>
+<span class="n">ext</span><span class="p">.</span><span class="n">apply_pcs</span><span class="p">;</span> <span class="c">% apply pcs to compute pc scores</span>
+<span class="n">figure</span><span class="p">();</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">ext</span><span class="p">.</span><span class="n">projections</span><span class="p">.</span><span class="n">pca</span><span class="p">(:,</span><span class="mi">1</span><span class="p">))</span> <span class="c">% plot the first principal component score</span>
+
+<span class="n">figure</span><span class="p">():</span>
+<span class="n">ext</span><span class="p">.</span><span class="n">pca</span><span class="p">.</span><span class="n">eigenmontage</span> <span class="c">% look at the components</span>
+</pre></div>
+</div>
+<p>Note that all quantities in <code class="docutils literal"><span class="pre">ext.projections</span></code> will drop in <code class="docutils literal"><span class="pre">nans</span></code> for dropped frames, so that the timebase is uniform.  In other words, if the camera drops 30 frames in the middle of a recording session, 30 <code class="docutils literal"><span class="pre">nans</span></code> will be dropped in at that point.  If you want to get a quantity back into the original frame timebase (i.e. with no <code class="docutils literal"><span class="pre">nans</span></code>), use the <code class="docutils literal"><span class="pre">get_original_timebase</span></code> method.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">original_vel_mag</span><span class="p">=</span><span class="n">ext</span><span class="p">.</span><span class="n">get_original_timebase</span><span class="p">(</span><span class="n">ext</span><span class="p">.</span><span class="n">projections</span><span class="p">.</span><span class="n">velocity_mag</span><span class="p">);</span> <span class="c">% get 2d velocity in units of frames</span>
+</pre></div>
+</div>
+<p>Now, if we want to save our progress.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">ext</span><span class="p">.</span><span class="n">save_progress</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This will save our object in the data directory automatically as <code class="docutils literal"><span class="pre">kinect_object.mat</span></code>.</p>
+</div>
+<div class="section" id="aggregating-sessions">
+<h2>Aggregating sessions<a class="headerlink" href="#aggregating-sessions" title="Permalink to this headline">¶</a></h2>
+<p>Since <code class="docutils literal"><span class="pre">kinect-extract</span></code> is a class, we can create an object array, with one object per extracted session.  If you were using the directory structure <a class="reference internal" href="#organization"><span class="std std-ref">listed here</span></a>. You would navigate to <code class="docutils literal"><span class="pre">my_projection</span></code>, then from MATLAB issue the following command:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">objs</span><span class="p">=</span><span class="n">kinect_extract_find_all_objects</span><span class="p">(</span><span class="n">pwd</span><span class="p">,</span><span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This will find all extracted directories in the current directory (the second argument tells the script to make objects where they don’t already exist). So then we can compute PCs and scalars using <em>all</em> of the objects in the array.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">objs</span><span class="p">.</span><span class="n">compute_all_projections</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computing-principal-components-and-scalars-bash">
+<h2>Computing principal components and scalars (bash)<a class="headerlink" href="#computing-principal-components-and-scalars-bash" title="Permalink to this headline">¶</a></h2>
+<p>Since this is a common step, there is a bash script for computing all pcs and scalars for all extracted data recursively found in a given directory. Assuming you have installed the bash scripts as prescribed <a class="reference internal" href="installation.html#installation"><span class="std std-ref">here</span></a>.  Note that by default it is assumed that you are running this on an o2 node (login or compute node).</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/dir_with_lots_of_extractions
+kinect_extract_get_projections -i <span class="nv">$pwd</span>
+</pre></div>
+</div>
+<p>To see how the script is normally used, run without any options.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kinect_extract_get_projections
+</pre></div>
+</div>
+</div>
+<div class="section" id="computing-principal-components-matlab">
+<h2>Computing principal components (MATLAB)<a class="headerlink" href="#computing-principal-components-matlab" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to compute principal components within a MATLAB session, along with all scalars and projections, is to use the <code class="docutils literal"><span class="pre">compute_all_projections</span></code> method.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">obj</span><span class="p">.</span><span class="n">compute_all_projections</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-a-flip-classifier">
+<h2>Making a flip classifier<a class="headerlink" href="#making-a-flip-classifier" title="Permalink to this headline">¶</a></h2>
+<p>If you find that your data has lots of flips, you’ll need to make a flip classifier. The first thing you’ll want to do here is correct any flips in your data.  If you have one object you want to correct, then run:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">obj</span><span class="p">.</span><span class="n">flip_tool</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You should now see a GUI for marking flips.  Mark every time the mouse flips (from left to right <em>and</em> right to left).  Be sure to click <em>save</em> before you close the window.  A text file with the frame numbers of flips should now be in the <code class="docutils literal"><span class="pre">proc</span></code> sub-directory.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">obj</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">&#39;flip&#39;</span><span class="p">,</span><span class="s">&#39;method&#39;</span><span class="p">,</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
+<span class="n">obj</span><span class="p">.</span><span class="n">correct_flips</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This sets the flip correction option to (f)ile, and then corrects flips, forcing a correction even if we already have run a flip classifier on the data.</p>
+</div>
+<div class="section" id="exporting-data-for-modeling">
+<h2>Exporting data for modeling<a class="headerlink" href="#exporting-data-for-modeling" title="Permalink to this headline">¶</a></h2>
+<p>If we want to export our pcs for modeling, we can use the <code class="docutils literal"><span class="pre">export_projection_to_cell</span></code> method.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">ext</span><span class="p">.</span><span class="n">export_projection_to_cell</span><span class="p">(</span><span class="s">&#39;pca&#39;</span><span class="p">,</span><span class="s">&#39;firstattempt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should now see a file in the <code class="docutils literal"><span class="pre">_analysis</span></code> sub-directory, <code class="docutils literal"><span class="pre">export_firstattempt.mat</span></code>, which has a cell array <code class="docutils literal"><span class="pre">features</span></code>, containing your principal component scores.  This can be used for modeling.</p>
+<p>Similarly, if we use the same export method on an <em>object array</em>, this will now export all objects, where each object’s projections are an element in a cell array (i.e. object 1 in the array maps to <code class="docutils literal"><span class="pre">features{1}</span></code>).</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">objs</span><span class="p">=</span><span class="n">kinect_extract_findall_objects</span><span class="p">;</span>
+<span class="n">objs</span><span class="p">.</span><span class="n">export_projection_to_cell</span><span class="p">(</span><span class="s">&#39;pca&#39;</span><span class="p">,</span><span class="s">&#39;myfirstgroupexport&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="assigning-groups-to-objects">
+<h2>Assigning groups to objects<a class="headerlink" href="#assigning-groups-to-objects" title="Permalink to this headline">¶</a></h2>
+<p>We may want to group the data in an intelligent way, e.g. we have two treatment groups.  If you know which objects correspond to which group, then</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="nb">length</span><span class="p">(</span><span class="n">indices_in_group_1</span><span class="p">)</span>
+  <span class="n">obj</span><span class="p">(</span><span class="n">indices_in_group_1</span><span class="p">(</span><span class="nb">i</span><span class="p">)).</span><span class="n">set_group</span><span class="p">(</span><span class="s">&#39;Group1&#39;</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="nb">length</span><span class="p">(</span><span class="n">indices_in_group2</span><span class="p">)</span>
+  <span class="n">obj</span><span class="p">(</span><span class="n">indices_in_group2</span><span class="p">(</span><span class="nb">i</span><span class="p">)).</span><span class="n">set_group</span><span class="p">(</span><span class="s">&#39;Group2&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>These objects are now assigned to these groups, to retrieve the groups associated with your object array then:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="p">=</span><span class="n">obj</span><span class="p">.</span><span class="n">get_groups</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If you export the data again, an additional variable <code class="docutils literal"><span class="pre">groups</span></code> will be exported as well, which will be useful for grouping data for modeling.</p>
+</div>
+<div class="section" id="custom-options">
+<h2>Custom options<a class="headerlink" href="#custom-options" title="Permalink to this headline">¶</a></h2>
+<p>Under construction…</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jeffrey E. Markowitz.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
