@@ -11,34 +11,7 @@ if ~exist('phan','var')
     phan=phanalysis_object;
 end
 
-listing=dir(fullfile(pwd,'rf*.mat'));
-listing={listing(:).name};
-upd=kinect_extract.proc_timer(length(listing));
-performance=struct();
-performance_meta=struct();
-performance_conf_mat=struct();
-performance_rnd=struct();
-nrands=100;
-
-for i=1:length(listing)
-    
-    load(listing{i},'metadata','obs_classes','prediction','rand_prediction');        
-          
-    perf=mean(prediction==obs_classes);
-    performance.(metadata.data_type)(metadata.level_idx,metadata.fold_idx)=perf;
-    performance_meta.(metadata.data_type)(metadata.level_idx,metadata.fold_idx)=metadata;
-    
-    tmp=nan(1,nrands);
-    
-    for j=1:nrands
-        guesses=randsample(obs_classes,length(obs_classes));
-        tmp(j)=mean(guesses==obs_classes);        
-    end
-    
-    performance_rnd.(metadata.data_type)(metadata.level_idx,metadata.fold_idx,:)=tmp;        
-    upd(i);
-   
-end
+load('~/Desktop/phanalysis_images/decoding_results/decoding_results_photometry_moseq_hierarchy.mat')
 
 %%
 
