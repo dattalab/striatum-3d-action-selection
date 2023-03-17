@@ -20,7 +20,12 @@ Jeffrey E. Markowitz<sup>1,2,5</sup>, Winthrop Gillis<sup>1</sup>, Celion Beron<
 
 # Overview
 
-All code is in MATLAB and has been tested against versions up to 2022b.
+This contains code necessary to regenerate key figures and analysis from this paper. All code is in MATLAB and has been tested against versions up to 2022b. The directories are arranged as follows:
+
+1. `fig_scripts` MATLAB scripts to directly generate figure panels. It is recommended to clear the MATLAB workspace prior to running each script.
+2. `lib` contains custom MATLAB classes and functions for data processing.
+3. `preprocessing` contains MATLAB scripts to regenerate long-running intermediate computations. It is not necessary to run these prior to running the figure-generation scripts. These are included for completeness.
+4. `third_party` useful third-party functions.
 
 <br><br>
 
