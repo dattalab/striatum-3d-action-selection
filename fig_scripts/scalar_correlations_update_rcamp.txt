@@ -1,0 +1,9 @@
+r=0.0375277 angle_dt: 3.45316e-52
+r=-0.0570803 height_ave: 1.94467e-119
+r=0.0645845 height_ave_dt: 5.72875e-153
+r=0.0391493 length: 8.80806e-57
+r=0.0352235 length_dt: 5.64147e-46
+r=0.0564293 velocity_mag: 5.93608e-117
+r=-0.00526662 velocity_mag_dt: 0.063039
+r=0.0258056 velocity_mag_3d: 5.73897e-26
+r=-0.0125293 velocity_mag_3d_dt: 9.35858e-07
