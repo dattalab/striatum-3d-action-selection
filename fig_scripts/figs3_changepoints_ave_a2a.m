@@ -29,7 +29,7 @@ nboots=phan.user_data.nboots;
 %nboots=50;
 nshuffles=phan.user_data.nshuffles;
 tvec=[-keep_win(1):keep_win(2)]/fs;
-chk_fields={'wins','wins_dt','wins_auto','wins_auto_dt','wins_deconv','wins_auto_deconv'};
+chk_fields={'wins','wins_dt','wins_auto','wins_auto_dt'};
 %chk_fields={'wins','wins_dt','wins_auto','wins_auto_dt'};
 opts=statset('UseParallel',true);
 
@@ -89,7 +89,7 @@ end
 %%
 
 % plotting
-plot_fields={'wins','wins_auto','wins_dt','wins_auto_dt','wins_deconv','wins_auto_deconv'};
+plot_fields={'wins','wins_auto','wins_dt','wins_auto_dt'};
 %plot_fields={'wins','wins_auto','wins_dt','wins_auto_dt'};
 
 changepoint_ave=schfigure([],false);

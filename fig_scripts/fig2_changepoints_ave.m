@@ -86,6 +86,8 @@ for i=1:length(chk_fields)
     
 end
 
+save('~/Desktop/phanalysis_images/changepoints_stats_dls.mat','tvec','rp_cat','-v7.3');
+
 %%
 
 % plotting
