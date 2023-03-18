@@ -45,32 +45,15 @@ use_lag=max_lag+offset;
 
 use_mu_gcamp=use_gcamp(use_lag-use_samples_gcamp(1):use_lag+use_samples_gcamp(2),:);
 use_mu_rcamp=use_rcamp(use_lag-use_samples_rcamp(1):use_lag+use_samples_rcamp(2),:);
-% % 
-% use_mu_gcamp=ave_starts_norm.gcamp_mu.mu(60:70,:);
-% use_mu_rcamp=ave_starts_norm.rcamp_mu.mu(60:70,:);
 use_mu_gcamp=([ave_starts_warped.gcamp_mu.mu(1:end,:);...
     ave_starts_warped.gcamp_mu.mu_dt(1:end,:)]);
 use_mu_rcamp=([ave_starts_warped.rcamp_mu.mu(1:end,:);...
     ave_starts_warped.rcamp_mu.mu_dt(1:end,:)]);
 
-% 
-% use_mu_gcamp=([ave_starts_warped.gcamp_mu.mu(1:end,:)]);
-% use_mu_rcamp=([ave_starts_warped.rcamp_mu.mu(1:end,:)]);
-
-
-%dist_mat=phan.distance.inter.kl;
-%use_idx=max(abs(use_gcamp))>=3.5&max(abs(use_rcamp))>=3.5;
-%val=max(abs(use_rcamp));
-%[~,test]=sort(val,'descend');
-
-%use_idx=test(1:30); 
+ 
 use_idx=1:cut;
 
 distance=struct();
-% 
-% distance.jsd=sqrt(abs(squareform(phan.distance.inter.kl(use_idx,use_idx),'tovector')));
-% distance.ar=abs(squareform(phan.distance.inter.ar(use_idx,use_idx),'tovector'));
-
 use_scalars=fieldnames(phan.distance.inter.scalars);
 scalar_idx=contains(use_scalars,{'velocity_mag','angle','height_ave'});
 use_scalars=use_scalars(scalar_idx);
@@ -112,16 +95,6 @@ end
 %%
 
 r_both_rnd=[];
-
-% if exist('gcamp_mu_rnd','var')
-%     for i=1:size(gcamp_mu_rnd,3)
-%         rcamp_use_rnd=rcamp_mu_rnd(use_lag-use_samples_rcamp(1):use_lag+use_samples_rcamp(2),:,i);
-%         gcamp_use_rnd=gcamp_mu_rnd(use_lag-use_samples_gcamp(2):use_lag+use_samples_gcamp(2),:,i);
-%         use_dist=pdist(zscore([rcamp_use_rnd;gcamp_use_rnd])','correlation');
-%         r_both_rnd(i)=corr(use_dist(:),distance.ar(:),'type','pearson','rows','pairwise');
-%     end
-%     fprintf('\n\n');
-% end
 
 if exist('gcamp_mu_rnd','var')
     for i=1:size(gcamp_mu_rnd,3)
