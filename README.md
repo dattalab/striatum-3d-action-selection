@@ -34,7 +34,7 @@ This contains code necessary to regenerate key figures and analysis from this pa
 Installation instructions
 
 1. Download the repository onto your local machine.
-1. Add the path (including subdirectories) to your MATLAB path. Note that you'll need the Signal Processing, Bioinformatics, Image Processing, and Parallel Computing Toolboxes installed.
+1. Add the path to the github repository (including subdirectories) to your MATLAB path. Note that you'll need the Signal Processing, Bioinformatics, Image Processing, and Parallel Computing Toolboxes installed.
 
 <br><br>
 
