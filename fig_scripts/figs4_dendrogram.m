@@ -8,7 +8,8 @@ if ~exist('model_starts','var')
     phan.set_option('normalize_method','');
     phan.set_option('rectify',false);
     phan.set_option('filter_trace',false);
-    model_starts=phan.slice_syllables_neural;    
+    model_starts=phan.slice_syllables_neural;
+    phan.compute_scalars_summary;
 end
 
 %%
