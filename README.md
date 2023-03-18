@@ -54,7 +54,9 @@ How to obtain data.
 		│   ├── decoding_results_1pimaging_ncells_zoom.mat
 		│   ├── decoding_results_1pimaging_twocolor_cell_types.mat
 		│   ├── decoding_results_1pimaging_twocolor_pseudopop.mat
-		│   └── decoding_results_1pimaging_twocolor_withinanimal.mat
+		│   ├── decoding_results_1pimaging_twocolor_withinanimal.mat
+		│   ├── decoding_results_photometry_moseq_hierarchy.mat
+		│   └── decoding_results_photometry_regress.mat
 		├── dls_lesion_round1
 		│   └── phanalysis_object.mat
 		├── dls_lesion_round2
