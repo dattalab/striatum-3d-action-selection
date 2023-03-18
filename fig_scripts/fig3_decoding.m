@@ -142,7 +142,7 @@ end
 
 
 linkage_type='complete';
-usemat=squareform(phan.distance.inter.ar(1:cutoff,1:cutoff),'tovector');
+usemat=squareform(phan.distance.inter.ar(1:phan.options.syllable_cutoff,1:phan.options.syllable_cutoff),'tovector');
 z=linkage(usemat,linkage_type);
 crit='group';
 outperm=optimalleaforder(z,usemat,'criteria',crit,'transformation','linear');
