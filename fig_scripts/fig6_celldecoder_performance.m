@@ -42,7 +42,7 @@ end
 
 %%
 
-load('~/Desktop/phanalysis_images/decoding_results/decoding_1pimaging_twocolor_cell_types.mat');
+load('~/Desktop/phanalysis_images/decoding_results/decoding_results_1pimaging_twocolor_cell_types.mat');
 %
 subplot(1,2,2);
 
