@@ -80,7 +80,7 @@ How to obtain data.
 		│   └── phanalysis_object.mat
 		└── photometry_nac
 			└── phanalysis_object.mat
-2. This contains everything you need to run the scripts in `fig_scripts`; this directory contains MATLAB scripts for generating panels from the manuscript.
+2. This contains everything you need to run the scripts in `fig_scripts`; this directory contains MATLAB scripts for generating panels from the manuscript. *Be sure to clear all variables in between running scripts* (`clear all`).
 
 
 <br><br>
