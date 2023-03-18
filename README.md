@@ -38,7 +38,7 @@ Installation instructions
 
 <br><br>
 
-# Data
+# Data and Panel Generation
 
 How to obtain data.
 
