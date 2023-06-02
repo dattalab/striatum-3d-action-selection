@@ -33,7 +33,7 @@ noise_idx=find(tvec<-2|tvec>5);
 set_clims=[0 1];
 
 % 26-->3,4,8,9
-% 27 looks good maybe????
+% 27
 
 
 beh_example=[27];
