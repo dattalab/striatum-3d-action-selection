@@ -1,7 +1,7 @@
 %%
 
 if ~exist('phan','var')
-    load('~/Desktop/workspace/1pimaging_dls/_analysis/phanalysis_object_manual_segmentation_v11.mat');
+    load('~/Desktop/phanalysis_images/1pimaging_dls/phanalysis_object.mat');
     phan=phanalysis_object;
 end
 
@@ -10,8 +10,6 @@ end
 %
 %
 %
-
-% alllllright, we predicted some cell classes, now do something w/ 'em
 
 
 d1d1={};
